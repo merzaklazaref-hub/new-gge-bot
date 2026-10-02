@@ -1,350 +1,389 @@
-import * as React from 'react'
-import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
-import FormGroup from '@mui/material/FormGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+/*
+ * Frontend user setting pane.
+ * - Defines user details and plugin-specific options.
+ * - Interacts with app websocket and manages user save/remove actions.
+ */
+import * as React from "react";
+import Checkbox from "@mui/material/Checkbox";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Box from "@mui/material/Box";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { ErrorType, ActionType } from "../types.js"
-import PluginsTable from './pluginsTable'
-import settings from '../settings.json'
+import { ErrorType, ActionType } from "../types.js";
+import PluginsTable from "./pluginsTable";
+import settings from "../settings.json";
 
-const serverDetailsMap = {
-  'generic_country_international': { flag: '🌐', name: 'International' },
-  'generic_country_de': { flag: '🇩🇪', name: 'Germany' },
-  'generic_country_fr': { flag: '🇫🇷', name: 'France' },
-  'generic_country_cz': { flag: '🇨🇿', name: 'Czech Republic' },
-  'generic_country_pl': { flag: '🇵🇱', name: 'Poland' },
-  'generic_language_pt': { flag: '🇵🇹', name: 'Portugal/Brazil' },
-  'generic_country_es': { flag: '🇪🇸', name: 'Spain' },
-  'generic_country_it': { flag: '🇮🇹', name: 'Italy' },
-  'generic_country_tr': { flag: '🇹🇷', name: 'Turkey' },
-  'generic_country_nl': { flag: '🇳🇱', name: 'Netherlands' },
-  'generic_country_hu': { flag: '🇭🇺', name: 'Hungary' },
-  'generic_language_skn': { flag: '🇸🇪', name: 'Scandinavia' },
-  'generic_country_ru': { flag: '🇷🇺', name: 'Russia' },
-  'generic_country_ro': { flag: '🇷🇴', name: 'Romania' },
-  'generic_country_bg': { flag: '🇧🇬', name: 'Bulgaria' },
-  'generic_country_sk': { flag: '🇸🇰', name: 'Slovakia' },
-  'generic_country_gb': { flag: '🇬🇧', name: 'United Kingdom' },
-  'generic_country_br': { flag: '🇧🇷', name: 'Brazil' },
-  'generic_country_us': { flag: '🇺🇸', name: 'USA' },
-  'generic_country_au': { flag: '🇦🇺', name: 'Australia' },
-  'generic_country_kr': { flag: '🇰🇷', name: 'South Korea' },
-  'generic_country_jp': { flag: '🇯🇵', name: 'Japan' },
-  'generic_country_his': { flag: '🇪🇸', name: 'Hispanoamerica' },
-  'generic_country_in': { flag: '🇮🇳', name: 'India' },
-  'generic_country_cn': { flag: '🇨🇳', name: 'China' },
-  'generic_country_gr': { flag: '🇬🇷', name: 'Greece' },
-  'generic_country_lt': { flag: '🇱🇹', name: 'Lithuania' },
-  'generic_country_sa': { flag: '🇸🇦', name: 'Saudi Arabia' },
-  'generic_country_ae': { flag: '🇦🇪', name: 'UAE' },
-  'generic_country_eg': { flag: '🇪🇬', name: 'Egypt' },
-  'generic_country_arab': { flag: '🌐', name: 'Arabic' },
-  'generic_country_asia': { flag: '🌐', name: 'Asia' },
-  'generic_country_hant': { flag: '🇹🇼', name: 'Taiwan/HK' },
-  'generic_country_world': { flag: '🌐', name: 'World' }
-};
+const servers = new DOMParser().parseFromString(
+	await (
+		await fetch(
+			`${window.location.protocol === "https:" ? "https" : "http"}://${window.location.hostname}:${settings.port ?? window.location.port}/1.xml`,
+		)
+	).text(),
+	"text/xml",
+);
+const instances = [];
+const _instances = servers.getElementsByTagName("instance");
 
-function formatServerName(locaId, instanceName) {
-  if (!locaId) return `Server ${instanceName}`;
-  const key = locaId.toLowerCase();
-  const info = serverDetailsMap[key];
-  if (info) {
-    return `${info.flag} ${info.name} ${instanceName}`;
-  }
-  const cleanLoca = locaId.replace('generic_country_', '').replace('generic_language_', '').toUpperCase();
-  return `🌐 Server ${cleanLoca} ${instanceName}`;
+for (var key in _instances) {
+	const obj = _instances[key];
+
+	let server, zone, instanceLocaId, instanceName;
+
+	for (var key2 in obj.childNodes) {
+		const obj2 = obj.childNodes[key2];
+
+		switch (obj2.nodeName) {
+			case "server":
+				server = obj2.childNodes[0].nodeValue;
+				break;
+			case "zone":
+				zone = obj2.childNodes[0].nodeValue;
+				break;
+			case "instanceLocaId":
+				instanceLocaId = obj2.childNodes[0].nodeValue;
+				break;
+			case "instanceName":
+				instanceName = obj2.childNodes[0].nodeValue;
+				break;
+			default:
+		}
+	}
+	if (instanceLocaId)
+		instances.push({
+			id: obj.getAttribute("value"),
+			server,
+			zone,
+			instanceLocaId,
+			instanceName,
+		});
 }
 
-let instances = []
-fetch(`${window.location.protocol === 'https:' ? "https" : "http"}://${window.location.hostname}:${settings.port ?? window.location.port}/1.xml`)
-  .then(res => res.text())
-  .then(text => {
-    let servers = new DOMParser().parseFromString(text, "text/xml")
-    let _instances = servers.getElementsByTagName("instance")
-    for (var key in _instances) {
-        let obj = _instances[key]
-        if (obj && typeof obj === 'object') {
-            let server, zone, instanceLocaId, instanceName
-            for (var key2 in obj.childNodes) {
-                let obj2 = obj.childNodes[key2]
-                switch(obj2.nodeName) {
-                    case "server": server = obj2.childNodes[0]?.nodeValue; break
-                    case "zone": zone = obj2.childNodes[0]?.nodeValue; break
-                    case "instanceLocaId": instanceLocaId = obj2.childNodes[0]?.nodeValue; break
-                    case "instanceName": instanceName = obj2.childNodes[0]?.nodeValue; break
-                }
-            }
-            if(instanceLocaId)
-                instances.push({id: obj.getAttribute("value"),server,zone,instanceLocaId,instanceName})
-        }
-    }
-  })
-  .catch(err => console.error("Failed to parse servers xml in userSettings:", err))
+export default function UserSettings({
+	__,
+	selectedUser,
+	channels,
+	plugins,
+	ws,
+	closeBackdrop,
+	initialPlugin,
+}) {
+	const isMobile = useMediaQuery("(max-width:900px)");
+	selectedUser.name ??= "";
+	selectedUser.plugins ??= {};
+	const isNewUser = selectedUser.name === "";
+	const [name, setName] = React.useState(selectedUser.name);
+	const [pass, setPass] = React.useState("");
+	const [server, setServer] = React.useState(
+		selectedUser.server ?? instances[0].id,
+	);
+	const [externalEvent, setExternalEvent] = React.useState(
+		selectedUser.externalEvent,
+	);
+	const [showCredentials, setShowCredentials] = React.useState(isNewUser);
 
-function parseProxyString(str) {
-    str = (str || '').trim()
-    if (!str) return { host: '', port: null, user: '', pass: '' }
-    
-    if (str.includes('@')) {
-        const parts = str.split('@')
-        const authParts = parts[0].split(':')
-        const hostParts = parts[1].split(':')
-        return {
-            host: hostParts[0] || '',
-            port: hostParts[1] ? parseInt(hostParts[1], 10) : null,
-            user: authParts[0] || '',
-            pass: authParts[1] || ''
-        }
-    }
-    
-    const parts = str.split(':')
-    if (parts.length >= 4) {
-        return {
-            host: parts[0] || '',
-            port: parts[1] ? parseInt(parts[1], 10) : null,
-            user: parts[2] || '',
-            pass: parts.slice(3).join(':') || ''
-        }
-    } else {
-        return {
-            host: parts[0] || '',
-            port: parts[1] ? parseInt(parts[1], 10) : null,
-            user: '',
-            pass: ''
-        }
-    }
-}
+	return (
+		<div
+			onClick={(event) => event.stopPropagation()}
+			style={{ width: isMobile ? "96vw" : "max-content", maxWidth: "100%" }}
+		>
+			<Paper
+				sx={{
+					height: "92dvh",
+					display: "flex",
+					flexDirection: "column",
+					overflow: "hidden",
+					width: isMobile ? "96vw" : "85vw",
+					maxWidth: "1400px",
+					border: "2px solid rgba(0, 255, 170, 0.6)",
+					boxShadow:
+						"0 0 50px rgba(0, 255, 170, 0.15), inset 0 0 30px rgba(0, 255, 170, 0.03)",
+					backgroundColor: "#0d0f12",
+					borderRadius: 0,
+				}}
+			>
+				<div
+					style={{
+						padding: "8px 16px",
+						backgroundColor: "#13161a",
+						borderBottom: "1px solid rgba(0, 255, 170, 0.3)",
+						color: "#00ffaa",
+						fontFamily: '"JetBrains Mono", monospace',
+						fontSize: "14px",
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						gap: "8px",
+						flexShrink: 0,
+					}}
+				>
+					<span style={{ wordBreak: "break-word" }}>
+						{isNewUser ? "[INIT_NEW_USER]" : "[CONFIG_USER]"}
+						{" // "}
+						{name || "NULL"}
+					</span>
+					<Button
+						onClick={closeBackdrop}
+						style={{
+							minWidth: "30px",
+							color: "#ff3366",
+							padding: "0",
+							fontSize: "1.2rem",
+						}}
+					>
+						x
+					</Button>
+				</div>
+				<Box
+					sx={{
+							p: isMobile ? 1.25 : 2,
+						flexGrow: 1,
+						overflowY: "auto",
+						minHeight: 0,
+						"&::-webkit-scrollbar": {
+							width: "10px",
+						},
+						"&::-webkit-scrollbar-track": {
+							background: "rgba(0, 0, 0, 0.3)",
+							borderLeft: "1px solid rgba(0, 255, 170, 0.2)",
+						},
+						"&::-webkit-scrollbar-thumb": {
+							background: "rgba(0, 255, 170, 0.4)",
+							border: "1px solid rgba(0, 255, 170, 0.6)",
+						},
+						"&::-webkit-scrollbar-thumb:hover": {
+							background: "rgba(0, 255, 170, 0.6)",
+						},
+					}}
+				>
+					{/* Collapsible Credentials Section */}
+					<Box sx={{ mb: 2 }}>
+						<Button
+							onClick={() => setShowCredentials(!showCredentials)}
+							variant="outlined"
+							size="small"
+							sx={{
+								mb: showCredentials ? 1.5 : 0,
+								textTransform: "none",
+								color: "#00ffaa",
+								borderColor: "rgba(0, 255, 170, 0.3)",
+								fontSize: "0.8rem",
+								"&:hover": {
+									borderColor: "rgba(0, 255, 170, 0.6)",
+									backgroundColor: "rgba(0, 255, 170, 0.05)",
+								},
+							}}
+						>
+							{showCredentials ? "▼" : "▶"} Account Credentials
+						</Button>
+						{showCredentials && (
+							<FormGroup
+								row={!isMobile}
+								sx={{
+									gap: 1.5,
+									flexWrap: "wrap",
+									flexDirection: isMobile ? "column" : "row",
+									alignItems: isMobile ? "stretch" : "flex-end",
+								}}
+							>
+								<TextField
+									required
+									size="small"
+									label={__("username")}
+									value={name}
+									onChange={(e) => setName(e.target.value)}
+									disabled={!isNewUser}
+									sx={{
+										flex: "1 1 150px",
+										minWidth: isMobile ? "100%" : "120px",
+										maxWidth: isMobile ? "100%" : "200px",
+										"& .MuiInputBase-input": {
+											color: "#00ffaa",
+											fontSize: "0.85rem",
+											padding: "6px 8px",
+										},
+										"& .MuiInputLabel-root": {
+											fontSize: "0.8rem",
+										},
+									}}
+								/>
+								<TextField
+									required
+									size="small"
+									label={__("password")}
+									type="password"
+									value={pass}
+									onChange={(e) => setPass(e.target.value)}
+									sx={{
+										flex: "1 1 150px",
+										minWidth: isMobile ? "100%" : "120px",
+										maxWidth: isMobile ? "100%" : "200px",
+										"& .MuiInputBase-input": {
+											fontSize: "0.85rem",
+											padding: "6px 8px",
+										},
+										"& .MuiInputLabel-root": {
+											fontSize: "0.8rem",
+										},
+									}}
+								/>
 
-function formatProxy(host, port, user, pass) {
-    if (!host) return ''
-    let str = `${host}`
-    if (port) str += `:${port}`
-    if (user && pass) {
-        str += `:${user}:${pass}`
-    }
-    return str
-}
+								<FormControl
+									size="small"
+									sx={{
+										flex: "1 1 180px",
+										minWidth: isMobile ? "100%" : "150px",
+										maxWidth: isMobile ? "100%" : "250px",
+										"& .MuiInputBase-root": {
+											fontSize: "0.85rem",
+										},
+										"& .MuiInputLabel-root": {
+											fontSize: "0.8rem",
+										},
+									}}
+								>
+									<InputLabel
+										required
+										id="simple-select-label"
+										sx={{ color: "#8a9ab0" }}
+									>
+										{__("server")}
+									</InputLabel>
+									<Select
+										labelId="simple-select-label"
+										id="simple-select"
+										value={server}
+										onChange={(newValue) => setServer(newValue.target.value)}
+										sx={{
+											color: "#00ccff",
+											"& .MuiOutlinedInput-notchedOutline": {
+												borderColor: "rgba(0, 204, 255, 0.3)",
+											},
+										}}
+									>
+										{instances.map((server, i) => (
+											<MenuItem value={server.id} key={i}>
+												{__(server.instanceLocaId) + " " + server.instanceName}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
+								<FormControlLabel
+									sx={{
+										m: 0,
+										width: isMobile ? "100%" : "auto",
+										color: "#00ffaa",
+										"& .MuiTypography-root": {
+											fontSize: "0.85rem",
+										},
+									}}
+									control={
+										<Checkbox
+											checked={externalEvent}
+											onChange={(event) => {
+												setExternalEvent(event.target.checked);
+											}}
+											sx={{
+												color: "rgba(0, 255, 170, 0.4)",
+												"&.Mui-checked": {
+													color: "#00ffaa",
+												},
+												"& .MuiSvgIcon-root": {
+													fontSize: "1.2rem",
+												},
+											}}
+										/>
+									}
+									label={__("OR/BTH")}
+								/>
+							</FormGroup>
+						)}
+					</Box>
 
-export default function UserSettings({ __, selectedUser, channels, plugins, ws, closeBackdrop }) {
-    selectedUser.name ??= ""
-    selectedUser.plugins ??= {}
-    const isNewUser = selectedUser.name === ""
-    const [name, setName] = React.useState(selectedUser.name)
-    const [pass, setPass] = React.useState("")
-    const [server, setServer] = React.useState(selectedUser.server ?? (instances[0]?.id || ""))
-    const [externalEvent, setExternalEvent] = React.useState(selectedUser.externalEvent)
-    
-    const [proxyEnabled, setProxyEnabled] = React.useState(selectedUser.proxyEnabled ?? false)
-    const [proxyType, setProxyType] = React.useState(selectedUser.proxyType || "SOCKS5")
-    const [proxyInput, setProxyInput] = React.useState(
-        formatProxy(selectedUser.proxyHost, selectedUser.proxyPort, selectedUser.proxyUser, selectedUser.proxyPass)
-    )
-    const [testStatus, setTestStatus] = React.useState("")
-    const [testErrorMessage, setTestErrorMessage] = React.useState("")
+					<div
+						style={{
+							padding: "6px 0",
+							marginBottom: "12px",
+							borderBottom: "1px dashed rgba(0, 255, 170, 0.2)",
+							color: "#8a9ab0",
+							fontFamily: '"JetBrains Mono", monospace',
+							fontSize: "12px",
+						}}
+					>
+						{">"} CONFIGURE_PLUGINS
+					</div>
+					<PluginsTable
+						plugins={plugins}
+						userPlugins={selectedUser.plugins}
+						channels={channels}
+						__={__}
+						initialPlugin={initialPlugin}
+					/>
+				</Box>
 
-    const handleTestProxy = () => {
-        const parsed = parseProxyString(proxyInput)
-        if (!parsed.host || !parsed.port) {
-            setTestStatus("error")
-            setTestErrorMessage(__("proxyInvalidFormat") || "Invalid proxy format (ip:port)")
-            return
-        }
+				<Box
+					sx={{
+						p: 1.5,
+						borderTop: "1px solid rgba(0, 255, 170, 0.3)",
+						display: "flex",
+						justifyContent: isMobile ? "stretch" : "flex-end",
+						bgcolor: "#13161a",
+						flexShrink: 0,
+					}}
+				>
+					<Button
+						variant="contained"
+						color="primary"
+						size="small"
+						style={{
+							padding: "6px 20px",
+							letterSpacing: "2px",
+							width: isMobile ? "100%" : "auto",
+							backgroundColor: "rgba(0, 255, 170, 0.15)",
+							color: "#00ffaa",
+							border: "1px solid #00ffaa",
+							fontSize: "0.85rem",
+						}}
+						onClick={async () => {
+							for (const key in selectedUser.plugins) {
+								if (Object.keys(selectedUser.plugins[key]).length === 0)
+									delete selectedUser.plugins[key];
+							}
+							const obj = {
+								name: name,
+								pass: pass,
+								server: server,
+								plugins: selectedUser.plugins,
+								externalEvent: externalEvent,
+								state: selectedUser.state,
+							};
+							if (!isNewUser) {
+								obj.id = selectedUser.id;
+								if (pass === "") obj.pass = selectedUser.pass;
+							}
 
-        setTestStatus("testing")
-        setTestErrorMessage("")
+							ws.send(
+								JSON.stringify([
+									ErrorType.Success,
+									isNewUser ? ActionType.AddUser : ActionType.SetUser,
+									obj,
+								]),
+							);
 
-        const onMessage = (msg) => {
-            try {
-                const [errVal, action, obj] = JSON.parse(msg.data.toString())
-                if (action === ActionType.TestProxy) {
-                    ws.removeEventListener("message", onMessage)
-                    if (errVal === ErrorType.Success) {
-                        setTestStatus("success")
-                    } else {
-                        setTestStatus("error")
-                        setTestErrorMessage(obj.error || "Unknown error")
-                    }
-                }
-            } catch (e) {
-                console.error("Error parsing test proxy response:", e)
-            }
-        }
-
-        ws.addEventListener("message", onMessage)
-
-        ws.send(JSON.stringify([
-            ErrorType.Success,
-            ActionType.TestProxy,
-            {
-                proxyHost: parsed.host,
-                proxyPort: parsed.port,
-                proxyUser: parsed.user,
-                proxyPass: parsed.pass,
-                proxyType: proxyType
-            }
-        ]))
-
-        // Safety timeout
-        setTimeout(() => {
-            ws.removeEventListener("message", onMessage)
-        }, 10000)
-    }
-
-    return (
-        <div onClick={event => event.stopPropagation()} style={{ width: '100%', maxWidth: '850px', display: 'flex', justifyContent: 'center', padding: '16px', boxSizing: 'border-box' }}>
-            <Paper sx={{ maxHeight: '90vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', width: "100%" }}>
-                <Box sx={{ p: 2, flexGrow: 1, overflowY: 'auto' }}>
-                    <FormGroup row={true} sx={{ mb: 2, gap: 2}}>
-                        <TextField required size="small" label={__("username")} value={name} onChange={e => setName(e.target.value)} disabled={!isNewUser} />
-                        <TextField required size="small" label={__("password")} type='password' value={pass} onChange={e => setPass(e.target.value)} />
-                        
-                        <FormControl size="small" style={{minWidth: "max-content"}}>
-                            <InputLabel required id="simple-select-label">{__("server")}</InputLabel>
-                            <Select
-                                labelId="simple-select-label"
-                                id="simple-select"
-                                value={server}
-                                onChange={(newValue) => setServer(newValue.target.value)}
-                                disabled={!isNewUser}
-                            >
-                                {
-                                    instances.map((server, i) => <MenuItem value={server.id} key={i}>{formatServerName(server.instanceLocaId, server.instanceName)}</MenuItem>)
-                                }
-                            </Select>
-                        </FormControl>
-                        <FormControlLabel sx={{ m: 0 }} control={<Checkbox size="small" />} checked={externalEvent} onChange={e => setExternalEvent(e.target.checked)} label={<Typography variant="body2">OR/BTH</Typography>} />
-                    </FormGroup>
-
-                    {/* Proxy Settings Section */}
-                    <Box sx={{ my: 3, borderTop: '1px solid rgba(255,255,255,0.1)', pt: 2 }}>
-                        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600, color: 'primary.main' }}>
-                            {__("proxySettings") || "Proxy Settings"}
-                        </Typography>
-                        
-                        {/* Proxy Warning Alert Banner */}
-                        <Box sx={{
-                            mb: 2,
-                            p: 2,
-                            borderRadius: 1,
-                            bgcolor: 'rgba(255, 167, 38, 0.1)',
-                            border: '1px solid rgba(255, 167, 38, 0.3)',
-                            color: '#ffa726'
-                        }}>
-                            <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                {__("proxyWarning") || "Note: Free proxies are completely fine as long as they are working."}
-                            </Typography>
-                        </Box>
-                        
-                        <FormGroup row={true} sx={{ mb: 2, gap: 2, alignItems: 'center' }}>
-                            <FormControlLabel
-                                sx={{ m: 0 }}
-                                control={<Checkbox size="small" checked={proxyEnabled} onChange={e => setProxyEnabled(e.target.checked)} />}
-                                label={<Typography variant="body2">{__("enableProxy") || "Enable Proxy"}</Typography>}
-                            />
-                            
-                            <FormControl size="small" style={{ minWidth: 120 }} disabled={!proxyEnabled}>
-                                <InputLabel id="proxy-type-label">{__("proxyType") || "Type"}</InputLabel>
-                                <Select
-                                    labelId="proxy-type-label"
-                                    id="proxy-type-select"
-                                    value={proxyType}
-                                    label={__("proxyType") || "Type"}
-                                    onChange={e => setProxyType(e.target.value)}
-                                >
-                                    <MenuItem value="HTTP">HTTP</MenuItem>
-                                    <MenuItem value="HTTPS">HTTPS</MenuItem>
-                                    <MenuItem value="SOCKS4">SOCKS4</MenuItem>
-                                    <MenuItem value="SOCKS5">SOCKS5</MenuItem>
-                                </Select>
-                            </FormControl>
-                            
-                            <TextField
-                                size="small"
-                                label={__("proxyAddress") || "Proxy Address (ip:port:user:pass)"}
-                                placeholder="12.34.56.78:8080 or 12.34.56.78:8080:user:pass"
-                                value={proxyInput}
-                                onChange={e => setProxyInput(e.target.value)}
-                                disabled={!proxyEnabled}
-                                sx={{ flexGrow: 1, minWidth: 300 }}
-                            />
-                            
-                            <Button
-                                variant="outlined"
-                                size="medium"
-                                onClick={handleTestProxy}
-                                disabled={!proxyEnabled || testStatus === "testing"}
-                            >
-                                {testStatus === "testing" ? (__("testing") || "Testing...") : (__("testProxy") || "Test Proxy")}
-                            </Button>
-                        </FormGroup>
-                        
-                        {/* Test Status Messages */}
-                        {testStatus === "success" && (
-                            <Box sx={{ mb: 2, p: 1.5, borderRadius: 1, bgcolor: 'rgba(62, 207, 142, 0.1)', border: '1px solid rgba(62, 207, 142, 0.3)', color: '#3ecf8e' }}>
-                                <Typography variant="body2">{__("proxyTestSuccess") || "Proxy connected successfully!"}</Typography>
-                            </Box>
-                        )}
-                        {testStatus === "error" && (
-                            <Box sx={{ mb: 2, p: 1.5, borderRadius: 1, bgcolor: 'rgba(255, 107, 107, 0.1)', border: '1px solid rgba(255, 107, 107, 0.3)', color: '#ff6b6b' }}>
-                                <Typography variant="body2">
-                                    {(__("proxyTestFailed") || "Proxy connection failed:")} {testErrorMessage}
-                                </Typography>
-                            </Box>
-                        )}
-                    </Box>
-
-                    <PluginsTable plugins={plugins} userPlugins={selectedUser.plugins} channels={channels}  __={__} />
-                </Box>
-                
-                <Box sx={{ p: 2, borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'flex-end', bgcolor: 'background.paper' }}>
-                    <Button variant="contained" color="primary" size='small'
-                        onClick={async () => {
-                            for (const key in selectedUser.plugins) {
-                                if(Object.keys(selectedUser.plugins[key]).length === 0)
-                                    delete selectedUser.plugins[key]
-                            }
-                            const parsed = parseProxyString(proxyInput)
-                            let obj = {
-                                name: name,
-                                pass: pass,
-                                server: server,
-                                plugins: selectedUser.plugins,
-                                externalEvent: externalEvent,
-                                state: selectedUser.state,
-                                proxyHost: parsed.host,
-                                proxyPort: parsed.port,
-                                proxyUser: parsed.user,
-                                proxyPass: parsed.pass,
-                                proxyType: proxyType,
-                                proxyEnabled: proxyEnabled
-                            }
-                            if (!isNewUser) {
-                                obj.id = selectedUser.id
-                                if (pass === "") obj.pass = selectedUser.pass
-                            }
-
-                            ws.send(JSON.stringify([
-                                ErrorType.Success,
-                                isNewUser ? ActionType.AddUser : ActionType.SetUser,
-                                obj
-                            ]))
-
-                            closeBackdrop()
-                        }}
-                    >
-                        {__("save")}
-                    </Button>
-                </Box>
-            </Paper>
-        </div>
-    )
+							closeBackdrop();
+						}}
+					>
+						{__("save")}
+					</Button>
+				</Box>
+			</Paper>
+		</div>
+	);
 }

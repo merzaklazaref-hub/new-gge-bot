@@ -1,0 +1,16 @@
+{
+	"targetCampCoordinates": "Target camp coordinates (x:y, x:y)",
+	"useCooldownSkips": "Use skips for camp cooldown",
+	"cooldownSkipTypes": "Cooldown skip types",
+	"signOut": "התנתק",
+	"takeBreak": "Take a Break",
+	"attackDaimyo": "Attack Daimyo",
+	"attackForeign": "Attack Foreign",
+	"attackBloodcrows": "Attack Bloodcrows",
+	"buySpeedGlobalEffect": "Buy Speed Global Effect",
+	"khanDefence": "Khan Defence",
+	"sellStoredEquipment": "Sell Stored Equipment",
+	"shutoffTimer": "Shutoff Timer",
+	"toolsmith": "Toolsmith",
+	"skips": "Skips"
+}
