@@ -1,0 +1,1894 @@
+[
+  {
+    "id": 5,
+    "name": "Veteran saber cleaver"
+  },
+  {
+    "id": 6,
+    "name": "Veteran slingshot"
+  },
+  {
+    "id": 7,
+    "name": "Cave smasher"
+  },
+  {
+    "id": 8,
+    "name": "Cave hunter"
+  },
+  {
+    "id": 9,
+    "name": "Veteran demon horror"
+  },
+  {
+    "id": 10,
+    "name": "Veteran deathly horror"
+  },
+  {
+    "id": 11,
+    "name": "Veteran flame bearer"
+  },
+  {
+    "id": 12,
+    "name": "Veteran composite bowman"
+  },
+  {
+    "id": 13,
+    "name": "Muscle man"
+  },
+  {
+    "id": 14,
+    "name": "Marksman"
+  },
+  {
+    "id": 15,
+    "name": "Fruit Pirate"
+  },
+  {
+    "id": 18,
+    "name": "Imperial guardsman"
+  },
+  {
+    "id": 19,
+    "name": "Imperial bowman"
+  },
+  {
+    "id": 20,
+    "name": "Imperial knight"
+  },
+  {
+    "id": 21,
+    "name": "Imperial marksman"
+  },
+  {
+    "id": 22,
+    "name": "Berserker"
+  },
+  {
+    "id": 23,
+    "name": "Spear woman"
+  },
+  {
+    "id": 34,
+    "name": "Renegade sai warrior"
+  },
+  {
+    "id": 35,
+    "name": "Renegade kunai thrower"
+  },
+  {
+    "id": 36,
+    "name": "Renegade katana warrior"
+  },
+  {
+    "id": 37,
+    "name": "Renegade bow master"
+  },
+  {
+    "id": 38,
+    "name": "Katana warrior"
+  },
+  {
+    "id": 39,
+    "name": "Bow master"
+  },
+  {
+    "id": 40,
+    "name": "Skeleton warrior"
+  },
+  {
+    "id": 41,
+    "name": "Skeleton bowman"
+  },
+  {
+    "id": 42,
+    "name": "Pumpkin butcher"
+  },
+  {
+    "id": 43,
+    "name": "Raven chomper"
+  },
+  {
+    "id": 48,
+    "name": "Bone huntress"
+  },
+  {
+    "id": 50,
+    "name": "Frost bowman"
+  },
+  {
+    "id": 51,
+    "name": "Master bone huntress"
+  },
+  {
+    "id": 52,
+    "name": "Master frost bowman"
+  },
+  {
+    "id": 58,
+    "name": "Star-spangled knight"
+  },
+  {
+    "id": 59,
+    "name": "Star-spangled crossbowman"
+  },
+  {
+    "id": 68,
+    "name": "Cave smasher"
+  },
+  {
+    "id": 74,
+    "name": "Cave hunter"
+  },
+  {
+    "id": 75,
+    "name": "Knight of the Elite Guard"
+  },
+  {
+    "id": 76,
+    "name": "Crossbowman of the Elite Guard"
+  },
+  {
+    "id": 78,
+    "name": "Renegade cave smasher"
+  },
+  {
+    "id": 79,
+    "name": "Renegade cave hunter"
+  },
+  {
+    "id": 83,
+    "name": "Forest warrior"
+  },
+  {
+    "id": 84,
+    "name": "Forest hunter"
+  },
+  {
+    "id": 85,
+    "name": "Forest guardian"
+  },
+  {
+    "id": 86,
+    "name": "Forest bowman"
+  },
+  {
+    "id": 92,
+    "name": "Demon shadow"
+  },
+  {
+    "id": 93,
+    "name": "Deathly shadow"
+  },
+  {
+    "id": 100,
+    "name": "Shamrock huntsman"
+  },
+  {
+    "id": 101,
+    "name": "Shamrock assassin"
+  },
+  {
+    "id": 102,
+    "name": "Spring huntress"
+  },
+  {
+    "id": 103,
+    "name": "Spring footsoldier"
+  },
+  {
+    "id": 117,
+    "name": "Fire witch"
+  },
+  {
+    "id": 118,
+    "name": "Bone rattler"
+  },
+  {
+    "id": 119,
+    "name": "Skeletal hunter"
+  },
+  {
+    "id": 120,
+    "name": "Skeletal scytheman"
+  },
+  {
+    "id": 126,
+    "name": "Shapeshifter legionnaire"
+  },
+  {
+    "id": 127,
+    "name": "Shapeshifter sharpshooter"
+  },
+  {
+    "id": 132,
+    "name": "Gnomad warrior"
+  },
+  {
+    "id": 133,
+    "name": "Gnomad archer"
+  },
+  {
+    "id": 134,
+    "name": "Gingerbread brawler"
+  },
+  {
+    "id": 135,
+    "name": "Gingerbread sniper"
+  },
+  {
+    "id": 146,
+    "name": "Knight of the Throne-watcher"
+  },
+  {
+    "id": 147,
+    "name": "Marksman of the Throne-watcher"
+  },
+  {
+    "id": 148,
+    "name": "Relic axeman"
+  },
+  {
+    "id": 149,
+    "name": "Relic shortbowman"
+  },
+  {
+    "id": 150,
+    "name": "Relic hammerman"
+  },
+  {
+    "id": 151,
+    "name": "Relic longbowman"
+  },
+  {
+    "id": 183,
+    "name": "Cultist brawler"
+  },
+  {
+    "id": 184,
+    "name": "Cultist slingshot"
+  },
+  {
+    "id": 185,
+    "name": "Cultist warrior"
+  },
+  {
+    "id": 186,
+    "name": "Cultist hunter"
+  },
+  {
+    "id": 187,
+    "name": "Wilderness brawler"
+  },
+  {
+    "id": 188,
+    "name": "Wilderness slingshot"
+  },
+  {
+    "id": 189,
+    "name": "Wilderness warrior"
+  },
+  {
+    "id": 190,
+    "name": "Wilderness hunter"
+  },
+  {
+    "id": 191,
+    "name": "Corrupted assassin"
+  },
+  {
+    "id": 192,
+    "name": "Corrupted crossbowman"
+  },
+  {
+    "id": 193,
+    "name": "Corrupted veteran halberdier"
+  },
+  {
+    "id": 194,
+    "name": "Corrupted veteran longbowman"
+  },
+  {
+    "id": 195,
+    "name": "Shield-maiden"
+  },
+  {
+    "id": 196,
+    "name": "Level 1 Shield-maiden"
+  },
+  {
+    "id": 197,
+    "name": "Level 2 Shield-maiden"
+  },
+  {
+    "id": 198,
+    "name": "Level 3 Shield-maiden"
+  },
+  {
+    "id": 199,
+    "name": "Level 4 Shield-maiden"
+  },
+  {
+    "id": 200,
+    "name": "Level 5 Shield-maiden"
+  },
+  {
+    "id": 201,
+    "name": "Level 6 Shield-maiden"
+  },
+  {
+    "id": 202,
+    "name": "Level 7 Shield-maiden"
+  },
+  {
+    "id": 203,
+    "name": "Level 8 Shield-maiden"
+  },
+  {
+    "id": 204,
+    "name": "Level 9 Shield-maiden"
+  },
+  {
+    "id": 205,
+    "name": "Valkyrie ranger"
+  },
+  {
+    "id": 206,
+    "name": "Level 1 Valkyrie ranger"
+  },
+  {
+    "id": 207,
+    "name": "Level 2 Valkyrie ranger"
+  },
+  {
+    "id": 208,
+    "name": "Level 3 Valkyrie ranger"
+  },
+  {
+    "id": 209,
+    "name": "Level 4 Valkyrie ranger"
+  },
+  {
+    "id": 210,
+    "name": "Level 5 Valkyrie ranger"
+  },
+  {
+    "id": 211,
+    "name": "Level 6 Valkyrie ranger"
+  },
+  {
+    "id": 212,
+    "name": "Level 7 Valkyrie ranger"
+  },
+  {
+    "id": 213,
+    "name": "Level 8 Valkyrie ranger"
+  },
+  {
+    "id": 214,
+    "name": "Level 9 Valkyrie ranger"
+  },
+  {
+    "id": 215,
+    "name": "Level 10 Shield-maiden"
+  },
+  {
+    "id": 216,
+    "name": "Level 10 Valkyrie ranger"
+  },
+  {
+    "id": 217,
+    "name": "Protector of the north"
+  },
+  {
+    "id": 218,
+    "name": "Level 1 Protector of the north"
+  },
+  {
+    "id": 219,
+    "name": "Level 2 Protector of the north"
+  },
+  {
+    "id": 220,
+    "name": "Level 3 Protector of the north"
+  },
+  {
+    "id": 221,
+    "name": "Level 4 Protector of the north"
+  },
+  {
+    "id": 222,
+    "name": "Level 5 Protector of the north"
+  },
+  {
+    "id": 223,
+    "name": "Level 6 Protector of the north"
+  },
+  {
+    "id": 224,
+    "name": "Level 7 Protector of the north"
+  },
+  {
+    "id": 225,
+    "name": "Level 8 Protector of the north"
+  },
+  {
+    "id": 226,
+    "name": "Level 9 Protector of the north"
+  },
+  {
+    "id": 227,
+    "name": "Level 10 Protector of the north"
+  },
+  {
+    "id": 228,
+    "name": "Valkyrie sniper"
+  },
+  {
+    "id": 229,
+    "name": "Level 1 Valkyrie sniper"
+  },
+  {
+    "id": 230,
+    "name": "Level 2 Valkyrie sniper"
+  },
+  {
+    "id": 231,
+    "name": "Level 3 Valkyrie sniper"
+  },
+  {
+    "id": 232,
+    "name": "Level 4 Valkyrie sniper"
+  },
+  {
+    "id": 233,
+    "name": "Level 5 Valkyrie sniper"
+  },
+  {
+    "id": 234,
+    "name": "Level 6 Valkyrie sniper"
+  },
+  {
+    "id": 235,
+    "name": "Level 7 Valkyrie sniper"
+  },
+  {
+    "id": 236,
+    "name": "Level 8 Valkyrie sniper"
+  },
+  {
+    "id": 237,
+    "name": "Level 9 Valkyrie sniper"
+  },
+  {
+    "id": 238,
+    "name": "Level 10 Valkyrie sniper"
+  },
+  {
+    "id": 277,
+    "name": "Direwolf"
+  },
+  {
+    "id": 288,
+    "name": "Easter Championess"
+  },
+  {
+    "id": 299,
+    "name": "Valkyrie Huntress"
+  },
+  {
+    "id": 308,
+    "name": "Veteran halberdier"
+  },
+  {
+    "id": 309,
+    "name": "Veteran two-handed swordsman"
+  },
+  {
+    "id": 311,
+    "name": "Veteran longbowman"
+  },
+  {
+    "id": 312,
+    "name": "Veteran heavy crossbowman"
+  },
+  {
+    "id": 336,
+    "name": "Guardian of Spring"
+  },
+  {
+    "id": 347,
+    "name": "Celestial Marksman"
+  },
+  {
+    "id": 358,
+    "name": "Summer Huntress"
+  },
+  {
+    "id": 369,
+    "name": "Fruit Breaker"
+  },
+  {
+    "id": 409,
+    "name": "Star-Spangled Veteran demon horror"
+  },
+  {
+    "id": 410,
+    "name": "Star-Spangled Veteran deathly horror"
+  },
+  {
+    "id": 461,
+    "name": "Summer Marksman"
+  },
+  {
+    "id": 472,
+    "name": "Level 10 Forsaken maiden"
+  },
+  {
+    "id": 473,
+    "name": "Level 10 Forlorn ranger"
+  },
+  {
+    "id": 477,
+    "name": "Level 10 Candy Cane Protector"
+  },
+  {
+    "id": 478,
+    "name": "Level 10 Jolly Gingerbread Sniper"
+  },
+  {
+    "id": 479,
+    "name": "Stein Smasher"
+  },
+  {
+    "id": 480,
+    "name": "Cask Marksmann"
+  },
+  {
+    "id": 481,
+    "name": "Pretzel Guardian"
+  },
+  {
+    "id": 482,
+    "name": "Bavarian Brewer"
+  },
+  {
+    "id": 483,
+    "name": "Level 10 Forsaken maiden"
+  },
+  {
+    "id": 484,
+    "name": "Level 10 Forlorn ranger"
+  },
+  {
+    "id": 485,
+    "name": "Glacial Amazon Warrior"
+  },
+  {
+    "id": 486,
+    "name": "Glacial Amazon Archer"
+  },
+  {
+    "id": 487,
+    "name": "Glacial Amazon Guardian"
+  },
+  {
+    "id": 488,
+    "name": "Glacial Amazon Huntress"
+  },
+  {
+    "id": 489,
+    "name": "Level 11 Protector of the north"
+  },
+  {
+    "id": 493,
+    "name": "Level 11 Valkyrie sniper"
+  },
+  {
+    "id": 494,
+    "name": "Christmas Warrior"
+  },
+  {
+    "id": 495,
+    "name": "Christmas Archer"
+  },
+  {
+    "id": 496,
+    "name": "Christmas Guardian"
+  },
+  {
+    "id": 497,
+    "name": "Christmas Huntress"
+  },
+  {
+    "id": 498,
+    "name": "Festive Warrior"
+  },
+  {
+    "id": 499,
+    "name": "Festive Archer"
+  },
+  {
+    "id": 500,
+    "name": "Festive Guardian"
+  },
+  {
+    "id": 501,
+    "name": "Festive Huntress"
+  },
+  {
+    "id": 502,
+    "name": "Forsaken maiden"
+  },
+  {
+    "id": 503,
+    "name": "Forlorn ranger"
+  },
+  {
+    "id": 504,
+    "name": "Corrupted Subject"
+  },
+  {
+    "id": 505,
+    "name": "Decayed Axe Bearer"
+  },
+  {
+    "id": 506,
+    "name": "Decayed Bolt Slinger"
+  },
+  {
+    "id": 513,
+    "name": "Glasswing Archer"
+  },
+  {
+    "id": 514,
+    "name": "Level 1 Glasswing Archer"
+  },
+  {
+    "id": 515,
+    "name": "Level 2 Glasswing Archer"
+  },
+  {
+    "id": 516,
+    "name": "Level 3 Glasswing Archer"
+  },
+  {
+    "id": 517,
+    "name": "Level 4 Glasswing Archer"
+  },
+  {
+    "id": 518,
+    "name": "Level 5 Glasswing Archer"
+  },
+  {
+    "id": 519,
+    "name": "Level 6 Glasswing Archer"
+  },
+  {
+    "id": 520,
+    "name": "Level 7 Glasswing Archer"
+  },
+  {
+    "id": 521,
+    "name": "Level 8 Glasswing Archer"
+  },
+  {
+    "id": 522,
+    "name": "Level 9 Glasswing Archer"
+  },
+  {
+    "id": 523,
+    "name": "Level 10 Glasswing Archer"
+  },
+  {
+    "id": 524,
+    "name": "Flamebreath Berserker"
+  },
+  {
+    "id": 525,
+    "name": "Level 1 Flamebreath Berserker"
+  },
+  {
+    "id": 526,
+    "name": "Level 2 Flamebreath Berserker"
+  },
+  {
+    "id": 527,
+    "name": "Level 3 Flamebreath Berserker"
+  },
+  {
+    "id": 528,
+    "name": "Level 4 Flamebreath Berserker"
+  },
+  {
+    "id": 529,
+    "name": "Level 5 Flamebreath Berserker"
+  },
+  {
+    "id": 530,
+    "name": "Level 6 Flamebreath Berserker"
+  },
+  {
+    "id": 531,
+    "name": "Level 7 Flamebreath Berserker"
+  },
+  {
+    "id": 532,
+    "name": "Level 8 Flamebreath Berserker"
+  },
+  {
+    "id": 533,
+    "name": "Level 9 Flamebreath Berserker"
+  },
+  {
+    "id": 534,
+    "name": "Level 10 Flamebreath Berserker"
+  },
+  {
+    "id": 535,
+    "name": "Scalebound Guardian"
+  },
+  {
+    "id": 536,
+    "name": "Level 1 Scalebound Guardian"
+  },
+  {
+    "id": 537,
+    "name": "Level 2 Scalebound Guardian"
+  },
+  {
+    "id": 538,
+    "name": "Level 3 Scalebound Guardian"
+  },
+  {
+    "id": 539,
+    "name": "Level 4 Scalebound Guardian"
+  },
+  {
+    "id": 540,
+    "name": "Level 5 Scalebound Guardian"
+  },
+  {
+    "id": 541,
+    "name": "Level 6 Scalebound Guardian"
+  },
+  {
+    "id": 542,
+    "name": "Level 7 Scalebound Guardian"
+  },
+  {
+    "id": 543,
+    "name": "Level 8 Scalebound Guardian"
+  },
+  {
+    "id": 544,
+    "name": "Level 9 Scalebound Guardian"
+  },
+  {
+    "id": 545,
+    "name": "Level 10 Scalebound Guardian"
+  },
+  {
+    "id": 546,
+    "name": "Scaleshard Marksman"
+  },
+  {
+    "id": 547,
+    "name": "Level 1 Scaleshard Marksman"
+  },
+  {
+    "id": 548,
+    "name": "Level 2 Scaleshard Marksman"
+  },
+  {
+    "id": 549,
+    "name": "Level 3 Scaleshard Marksman"
+  },
+  {
+    "id": 550,
+    "name": "Level 4 Scaleshard Marksman"
+  },
+  {
+    "id": 551,
+    "name": "Level 5 Scaleshard Marksman"
+  },
+  {
+    "id": 552,
+    "name": "Level 6 Scaleshard Marksman"
+  },
+  {
+    "id": 553,
+    "name": "Level 7 Scaleshard Marksman"
+  },
+  {
+    "id": 554,
+    "name": "Level 8 Scaleshard Marksman"
+  },
+  {
+    "id": 555,
+    "name": "Level 9 Scaleshard Marksman"
+  },
+  {
+    "id": 556,
+    "name": "Level 10 Scaleshard Marksman"
+  },
+  {
+    "id": 601,
+    "name": "Swordsman"
+  },
+  {
+    "id": 602,
+    "name": "Spearman"
+  },
+  {
+    "id": 603,
+    "name": "Maceman"
+  },
+  {
+    "id": 604,
+    "name": "Halberdier"
+  },
+  {
+    "id": 605,
+    "name": "Two-handed swordsman"
+  },
+  {
+    "id": 606,
+    "name": "Archer"
+  },
+  {
+    "id": 607,
+    "name": "Crossbowman"
+  },
+  {
+    "id": 608,
+    "name": "Bowman"
+  },
+  {
+    "id": 609,
+    "name": "Heavy crossbowman"
+  },
+  {
+    "id": 610,
+    "name": "Longbowman"
+  },
+  {
+    "id": 612,
+    "name": "Shadow maceman"
+  },
+  {
+    "id": 613,
+    "name": "Shadow crossbowman"
+  },
+  {
+    "id": 615,
+    "name": "Shadow ram"
+  },
+  {
+    "id": 616,
+    "name": "Shadow ladder"
+  },
+  {
+    "id": 618,
+    "name": "Shadow bundles"
+  },
+  {
+    "id": 619,
+    "name": "Shadow shields"
+  },
+  {
+    "id": 628,
+    "name": "Veteran spearman"
+  },
+  {
+    "id": 630,
+    "name": "Veteran maceman"
+  },
+  {
+    "id": 631,
+    "name": "Veteran bowman"
+  },
+  {
+    "id": 636,
+    "name": "Veteran crossbowman"
+  },
+  {
+    "id": 652,
+    "name": "Armed citizen"
+  },
+  {
+    "id": 655,
+    "name": "Traveling knight"
+  },
+  {
+    "id": 656,
+    "name": "Traveling crossbowman"
+  },
+  {
+    "id": 657,
+    "name": "Shark tooth warrior"
+  },
+  {
+    "id": 658,
+    "name": "Stone smasher"
+  },
+  {
+    "id": 659,
+    "name": "Prince"
+  },
+  {
+    "id": 662,
+    "name": "Skeleton warrior"
+  },
+  {
+    "id": 663,
+    "name": "Skeleton bowman"
+  },
+  {
+    "id": 664,
+    "name": "Crossbowman of the Kingsguard"
+  },
+  {
+    "id": 667,
+    "name": "Shadow rogue"
+  },
+  {
+    "id": 668,
+    "name": "Shadow felon"
+  },
+  {
+    "id": 670,
+    "name": "Norseman with axe"
+  },
+  {
+    "id": 671,
+    "name": "Norseman with bow"
+  },
+  {
+    "id": 672,
+    "name": "Knight of the Kingsguard"
+  },
+  {
+    "id": 673,
+    "name": "Dragon claws"
+  },
+  {
+    "id": 674,
+    "name": "Dragon fire"
+  },
+  {
+    "id": 675,
+    "name": "Saber warrior"
+  },
+  {
+    "id": 676,
+    "name": "Desert bowman"
+  },
+  {
+    "id": 677,
+    "name": "Norseman with axe"
+  },
+  {
+    "id": 678,
+    "name": "Norseman with bow"
+  },
+  {
+    "id": 679,
+    "name": "Cultist fanatic"
+  },
+  {
+    "id": 680,
+    "name": "Cultist bowman"
+  },
+  {
+    "id": 684,
+    "name": "Marauder"
+  },
+  {
+    "id": 685,
+    "name": "Pyromaniac"
+  },
+  {
+    "id": 686,
+    "name": "Sentinel of the Kingsguard"
+  },
+  {
+    "id": 687,
+    "name": "Scout of the Kingsguard"
+  },
+  {
+    "id": 688,
+    "name": "Renegade saber warrior"
+  },
+  {
+    "id": 689,
+    "name": "Renegade desert bowman"
+  },
+  {
+    "id": 690,
+    "name": "Renegade Norseman warrior"
+  },
+  {
+    "id": 691,
+    "name": "Renegade Norseman bowman"
+  },
+  {
+    "id": 692,
+    "name": "Renegade cultist warrior"
+  },
+  {
+    "id": 693,
+    "name": "Renegade cultist bowman"
+  },
+  {
+    "id": 698,
+    "name": "Cow berdier"
+  },
+  {
+    "id": 699,
+    "name": "Longbow ox"
+  },
+  {
+    "id": 701,
+    "name": "Level 1 Swashbuckler"
+  },
+  {
+    "id": 702,
+    "name": "Level 2 Swashbuckler"
+  },
+  {
+    "id": 703,
+    "name": "Level 1 Sail ripper"
+  },
+  {
+    "id": 704,
+    "name": "Level 2 Sail ripper"
+  },
+  {
+    "id": 705,
+    "name": "Level 1 Renegade swashbuckler"
+  },
+  {
+    "id": 706,
+    "name": "Level 2 Renegade swashbuckler"
+  },
+  {
+    "id": 707,
+    "name": "Level 1 Renegade sail ripper"
+  },
+  {
+    "id": 708,
+    "name": "Level 2 Renegade sail ripper"
+  },
+  {
+    "id": 710,
+    "name": "Bear warrior"
+  },
+  {
+    "id": 711,
+    "name": "Bear bowman"
+  },
+  {
+    "id": 712,
+    "name": "Lion warrior"
+  },
+  {
+    "id": 713,
+    "name": "Lion bowman"
+  },
+  {
+    "id": 714,
+    "name": "Demon horror"
+  },
+  {
+    "id": 715,
+    "name": "Deathly horror"
+  },
+  {
+    "id": 716,
+    "name": "Swashbuckler"
+  },
+  {
+    "id": 717,
+    "name": "Sail ripper"
+  },
+  {
+    "id": 718,
+    "name": "Tentacle"
+  },
+  {
+    "id": 719,
+    "name": "Kraken head"
+  },
+  {
+    "id": 720,
+    "name": "Wolfhound"
+  },
+  {
+    "id": 721,
+    "name": "Barbarian"
+  },
+  {
+    "id": 722,
+    "name": "Composite bowman"
+  },
+  {
+    "id": 723,
+    "name": "Flame bearer"
+  },
+  {
+    "id": 724,
+    "name": "Veteran swordsman"
+  },
+  {
+    "id": 725,
+    "name": "Khan guard"
+  },
+  {
+    "id": 726,
+    "name": "Saber cleaver"
+  },
+  {
+    "id": 727,
+    "name": "Slingshot"
+  },
+  {
+    "id": 728,
+    "name": "Renegade lancer"
+  },
+  {
+    "id": 729,
+    "name": "Renegade spear thrower"
+  },
+  {
+    "id": 743,
+    "name": "Lancer"
+  },
+  {
+    "id": 744,
+    "name": "Spear thrower"
+  },
+  {
+    "id": 746,
+    "name": "Militia"
+  },
+  {
+    "id": 747,
+    "name": "Shadow scoundrel"
+  },
+  {
+    "id": 748,
+    "name": "Shadow wretch"
+  },
+  {
+    "id": 749,
+    "name": "Shadow battering ram"
+  },
+  {
+    "id": 750,
+    "name": "Shadow siege tower"
+  },
+  {
+    "id": 751,
+    "name": "Shadow assault bridge"
+  },
+  {
+    "id": 752,
+    "name": "Shadow mantlet"
+  },
+  {
+    "id": 753,
+    "name": "Demon slayer"
+  },
+  {
+    "id": 754,
+    "name": "Assassin"
+  },
+  {
+    "id": 759,
+    "name": "Renegade swashbuckler"
+  },
+  {
+    "id": 760,
+    "name": "Renegade sail ripper"
+  },
+  {
+    "id": 765,
+    "name": "Veteran marauder"
+  },
+  {
+    "id": 766,
+    "name": "Veteran pyromaniac"
+  },
+  {
+    "id": 767,
+    "name": "Renegade shark tooth warrior"
+  },
+  {
+    "id": 768,
+    "name": "Renegade stone smasher"
+  },
+  {
+    "id": 781,
+    "name": "Master swordsman"
+  },
+  {
+    "id": 782,
+    "name": "Master archer"
+  },
+  {
+    "id": 820,
+    "name": "Level 1 Katana warrior"
+  },
+  {
+    "id": 821,
+    "name": "Level 2 Katana warrior"
+  },
+  {
+    "id": 822,
+    "name": "Level 3 Katana warrior"
+  },
+  {
+    "id": 823,
+    "name": "Level 4 Katana warrior"
+  },
+  {
+    "id": 824,
+    "name": "Level 5 Katana warrior"
+  },
+  {
+    "id": 825,
+    "name": "Level 6 Katana warrior"
+  },
+  {
+    "id": 826,
+    "name": "Level 7 Katana warrior"
+  },
+  {
+    "id": 827,
+    "name": "Level 8 Katana warrior"
+  },
+  {
+    "id": 828,
+    "name": "Level 9 Katana warrior"
+  },
+  {
+    "id": 829,
+    "name": "Level 10 Katana warrior"
+  },
+  {
+    "id": 830,
+    "name": "Level 1 Bow master"
+  },
+  {
+    "id": 831,
+    "name": "Level 2 Bow master"
+  },
+  {
+    "id": 832,
+    "name": "Level 3 Bow master"
+  },
+  {
+    "id": 833,
+    "name": "Level 4 Bow master"
+  },
+  {
+    "id": 834,
+    "name": "Level 5 Bow master"
+  },
+  {
+    "id": 835,
+    "name": "Level 6 Bow master"
+  },
+  {
+    "id": 836,
+    "name": "Level 7 Bow master"
+  },
+  {
+    "id": 837,
+    "name": "Level 8 Bow master"
+  },
+  {
+    "id": 838,
+    "name": "Level 9 Bow master"
+  },
+  {
+    "id": 839,
+    "name": "Level 10 Bow master"
+  },
+  {
+    "id": 860,
+    "name": "Level 1 Sai warrior"
+  },
+  {
+    "id": 861,
+    "name": "Level 2 Sai warrior"
+  },
+  {
+    "id": 862,
+    "name": "Level 3 Sai warrior"
+  },
+  {
+    "id": 863,
+    "name": "Level 4 Sai warrior"
+  },
+  {
+    "id": 864,
+    "name": "Level 5 Sai warrior"
+  },
+  {
+    "id": 865,
+    "name": "Level 6 Sai warrior"
+  },
+  {
+    "id": 866,
+    "name": "Level 7 Sai warrior"
+  },
+  {
+    "id": 867,
+    "name": "Level 8 Sai warrior"
+  },
+  {
+    "id": 868,
+    "name": "Level 9 Sai warrior"
+  },
+  {
+    "id": 869,
+    "name": "Level 10 Sai warrior"
+  },
+  {
+    "id": 870,
+    "name": "Level 1 Kunai thrower"
+  },
+  {
+    "id": 871,
+    "name": "Level 2 Kunai thrower"
+  },
+  {
+    "id": 872,
+    "name": "Level 3 Kunai thrower"
+  },
+  {
+    "id": 873,
+    "name": "Level 4 Kunai thrower"
+  },
+  {
+    "id": 874,
+    "name": "Level 5 Kunai thrower"
+  },
+  {
+    "id": 875,
+    "name": "Level 6 Kunai thrower"
+  },
+  {
+    "id": 876,
+    "name": "Level 7 Kunai thrower"
+  },
+  {
+    "id": 877,
+    "name": "Level 8 Kunai thrower"
+  },
+  {
+    "id": 878,
+    "name": "Level 9 Kunai thrower"
+  },
+  {
+    "id": 879,
+    "name": "Level 10 Kunai thrower"
+  },
+  {
+    "id": 900,
+    "name": "Level 1 Lancer"
+  },
+  {
+    "id": 901,
+    "name": "Level 2 Lancer"
+  },
+  {
+    "id": 902,
+    "name": "Level 3 Lancer"
+  },
+  {
+    "id": 903,
+    "name": "Level 4 Lancer"
+  },
+  {
+    "id": 904,
+    "name": "Level 5 Lancer"
+  },
+  {
+    "id": 905,
+    "name": "Level 6 Lancer"
+  },
+  {
+    "id": 906,
+    "name": "Level 7 Lancer"
+  },
+  {
+    "id": 907,
+    "name": "Level 8 Lancer"
+  },
+  {
+    "id": 908,
+    "name": "Level 9 Lancer"
+  },
+  {
+    "id": 909,
+    "name": "Level 10 Lancer"
+  },
+  {
+    "id": 910,
+    "name": "Level 1 Spear thrower"
+  },
+  {
+    "id": 911,
+    "name": "Level 2 Spear thrower"
+  },
+  {
+    "id": 912,
+    "name": "Level 3 Spear thrower"
+  },
+  {
+    "id": 913,
+    "name": "Level 4 Spear thrower"
+  },
+  {
+    "id": 914,
+    "name": "Level 5 Spear thrower"
+  },
+  {
+    "id": 915,
+    "name": "Level 6 Spear thrower"
+  },
+  {
+    "id": 916,
+    "name": "Level 7 Spear thrower"
+  },
+  {
+    "id": 917,
+    "name": "Level 8 Spear thrower"
+  },
+  {
+    "id": 918,
+    "name": "Level 9 Spear thrower"
+  },
+  {
+    "id": 919,
+    "name": "Level 10 Spear thrower"
+  },
+  {
+    "id": 940,
+    "name": "Level 1 Veteran saber cleaver"
+  },
+  {
+    "id": 941,
+    "name": "Level 2 Veteran saber cleaver"
+  },
+  {
+    "id": 942,
+    "name": "Level 3 Veteran saber cleaver"
+  },
+  {
+    "id": 943,
+    "name": "Level 4 Veteran saber cleaver"
+  },
+  {
+    "id": 944,
+    "name": "Level 5 Veteran saber cleaver"
+  },
+  {
+    "id": 945,
+    "name": "Level 6 Veteran saber cleaver"
+  },
+  {
+    "id": 946,
+    "name": "Level 7 Veteran saber cleaver"
+  },
+  {
+    "id": 947,
+    "name": "Level 8 Veteran saber cleaver"
+  },
+  {
+    "id": 948,
+    "name": "Level 9 Veteran saber cleaver"
+  },
+  {
+    "id": 949,
+    "name": "Level 10 Veteran saber cleaver"
+  },
+  {
+    "id": 950,
+    "name": "Level 1 Veteran slingshot"
+  },
+  {
+    "id": 951,
+    "name": "Level 2 Veteran slingshot"
+  },
+  {
+    "id": 952,
+    "name": "Level 3 Veteran slingshot"
+  },
+  {
+    "id": 953,
+    "name": "Level 4 Veteran slingshot"
+  },
+  {
+    "id": 954,
+    "name": "Level 5 Veteran slingshot"
+  },
+  {
+    "id": 955,
+    "name": "Level 6 Veteran slingshot"
+  },
+  {
+    "id": 956,
+    "name": "Level 7 Veteran slingshot"
+  },
+  {
+    "id": 957,
+    "name": "Level 8 Veteran slingshot"
+  },
+  {
+    "id": 958,
+    "name": "Level 9 Veteran slingshot"
+  },
+  {
+    "id": 959,
+    "name": "Level 10 Veteran slingshot"
+  },
+  {
+    "id": 960,
+    "name": "Forest warrior"
+  },
+  {
+    "id": 961,
+    "name": "Forest hunter"
+  },
+  {
+    "id": 962,
+    "name": "Renegade swashbuckler"
+  },
+  {
+    "id": 963,
+    "name": "Renegade sail ripper"
+  },
+  {
+    "id": 2000,
+    "name": "Level 1 Veteran halberdier"
+  },
+  {
+    "id": 2001,
+    "name": "Level 2 Veteran halberdier"
+  },
+  {
+    "id": 2002,
+    "name": "Level 3 Veteran halberdier"
+  },
+  {
+    "id": 2003,
+    "name": "Level 4 Veteran halberdier"
+  },
+  {
+    "id": 2004,
+    "name": "Level 5 Veteran halberdier"
+  },
+  {
+    "id": 2005,
+    "name": "Level 6 Veteran halberdier"
+  },
+  {
+    "id": 2006,
+    "name": "Level 7 Veteran halberdier"
+  },
+  {
+    "id": 2007,
+    "name": "Level 8 Veteran halberdier"
+  },
+  {
+    "id": 2008,
+    "name": "Level 9 Veteran halberdier"
+  },
+  {
+    "id": 2009,
+    "name": "Level 10 Veteran halberdier"
+  },
+  {
+    "id": 2010,
+    "name": "Level 1 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2011,
+    "name": "Level 2 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2012,
+    "name": "Level 3 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2013,
+    "name": "Level 4 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2014,
+    "name": "Level 5 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2015,
+    "name": "Level 6 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2016,
+    "name": "Level 7 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2017,
+    "name": "Level 8 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2018,
+    "name": "Level 9 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2019,
+    "name": "Level 10 Veteran two-handed swordsman"
+  },
+  {
+    "id": 2020,
+    "name": "Level 1 Relic axeman"
+  },
+  {
+    "id": 2021,
+    "name": "Level 2 Relic axeman"
+  },
+  {
+    "id": 2022,
+    "name": "Level 3 Relic axeman"
+  },
+  {
+    "id": 2023,
+    "name": "Level 4 Relic axeman"
+  },
+  {
+    "id": 2024,
+    "name": "Level 5 Relic axeman"
+  },
+  {
+    "id": 2025,
+    "name": "Level 6 Relic axeman"
+  },
+  {
+    "id": 2026,
+    "name": "Level 7 Relic axeman"
+  },
+  {
+    "id": 2027,
+    "name": "Level 8 Relic axeman"
+  },
+  {
+    "id": 2028,
+    "name": "Level 9 Relic axeman"
+  },
+  {
+    "id": 2029,
+    "name": "Level 10 Relic axeman"
+  },
+  {
+    "id": 2030,
+    "name": "Level 1 Relic hammerman"
+  },
+  {
+    "id": 2031,
+    "name": "Level 2 Relic hammerman"
+  },
+  {
+    "id": 2032,
+    "name": "Level 3 Relic hammerman"
+  },
+  {
+    "id": 2033,
+    "name": "Level 4 Relic hammerman"
+  },
+  {
+    "id": 2034,
+    "name": "Level 5 Relic hammerman"
+  },
+  {
+    "id": 2035,
+    "name": "Level 6 Relic hammerman"
+  },
+  {
+    "id": 2036,
+    "name": "Level 7 Relic hammerman"
+  },
+  {
+    "id": 2037,
+    "name": "Level 8 Relic hammerman"
+  },
+  {
+    "id": 2038,
+    "name": "Level 9 Relic hammerman"
+  },
+  {
+    "id": 2039,
+    "name": "Level 10 Relic hammerman"
+  },
+  {
+    "id": 2040,
+    "name": "Level 1 Veteran longbowman"
+  },
+  {
+    "id": 2041,
+    "name": "Level 2 Veteran longbowman"
+  },
+  {
+    "id": 2042,
+    "name": "Level 3 Veteran longbowman"
+  },
+  {
+    "id": 2043,
+    "name": "Level 4 Veteran longbowman"
+  },
+  {
+    "id": 2044,
+    "name": "Level 5 Veteran longbowman"
+  },
+  {
+    "id": 2045,
+    "name": "Level 6 Veteran longbowman"
+  },
+  {
+    "id": 2046,
+    "name": "Level 7 Veteran longbowman"
+  },
+  {
+    "id": 2047,
+    "name": "Level 8 Veteran longbowman"
+  },
+  {
+    "id": 2048,
+    "name": "Level 9 Veteran longbowman"
+  },
+  {
+    "id": 2049,
+    "name": "Level 10 Veteran longbowman"
+  },
+  {
+    "id": 2050,
+    "name": "Level 1 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2051,
+    "name": "Level 2 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2052,
+    "name": "Level 3 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2053,
+    "name": "Level 4 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2054,
+    "name": "Level 5 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2055,
+    "name": "Level 6 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2056,
+    "name": "Level 7 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2057,
+    "name": "Level 8 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2058,
+    "name": "Level 9 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2059,
+    "name": "Level 10 Veteran heavy crossbowman"
+  },
+  {
+    "id": 2060,
+    "name": "Level 1 Relic shortbowman"
+  },
+  {
+    "id": 2061,
+    "name": "Level 2 Relic shortbowman"
+  },
+  {
+    "id": 2062,
+    "name": "Level 3 Relic shortbowman"
+  },
+  {
+    "id": 2063,
+    "name": "Level 4 Relic shortbowman"
+  },
+  {
+    "id": 2064,
+    "name": "Level 5 Relic shortbowman"
+  },
+  {
+    "id": 2065,
+    "name": "Level 6 Relic shortbowman"
+  },
+  {
+    "id": 2066,
+    "name": "Level 7 Relic shortbowman"
+  },
+  {
+    "id": 2067,
+    "name": "Level 8 Relic shortbowman"
+  },
+  {
+    "id": 2068,
+    "name": "Level 9 Relic shortbowman"
+  },
+  {
+    "id": 2069,
+    "name": "Level 10 Relic shortbowman"
+  },
+  {
+    "id": 2070,
+    "name": "Level 1 Relic longbowman"
+  },
+  {
+    "id": 2071,
+    "name": "Level 2 Relic longbowman"
+  },
+  {
+    "id": 2072,
+    "name": "Level 3 Relic longbowman"
+  },
+  {
+    "id": 2073,
+    "name": "Level 4 Relic longbowman"
+  },
+  {
+    "id": 2074,
+    "name": "Level 5 Relic longbowman"
+  },
+  {
+    "id": 2075,
+    "name": "Level 6 Relic longbowman"
+  },
+  {
+    "id": 2076,
+    "name": "Level 7 Relic longbowman"
+  },
+  {
+    "id": 2077,
+    "name": "Level 8 Relic longbowman"
+  },
+  {
+    "id": 2078,
+    "name": "Level 9 Relic longbowman"
+  },
+  {
+    "id": 2079,
+    "name": "Level 10 Relic longbowman"
+  }
+]

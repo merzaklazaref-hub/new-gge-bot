@@ -1,0 +1,16 @@
+node_modules
+website/node_modules
+.git
+.vscode
+.gge
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.gitignore
+Dockerfile*
+.dockerignore
+ggeConfig.json
+user.db
+user.db*

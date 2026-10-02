@@ -1,0 +1,13 @@
+{
+    "webPort" : "3001",
+    "fontPath" : "",
+    "privateKey" : "",
+    "cert" : "",
+    "signupToken" : "",
+    "discordToken" : "",
+    "discordClientId" : "",
+    "discordClientSecret" : "",
+    "timeoutMultiplier" : 1,
+    "secondsTillRestartBot": 10,
+    "debug" : false
+}
