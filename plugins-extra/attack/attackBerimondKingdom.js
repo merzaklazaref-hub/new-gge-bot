@@ -127,6 +127,18 @@ if (require('node:worker_threads').isMainThread)
                 default: false
             },
             {
+                type: "Checkbox",
+                key: "enableCampExpansions",
+                label: "Expand camp",
+                default: false
+            },
+            {
+                type: "Checkbox",
+                key: "enableCampBuildings",
+                label: "Build camp (Tents & Decorations)",
+                default: false
+            },
+            {
                 type: "Text",
                 key: "troopCount",
                 label: "Troop count",
@@ -188,8 +200,13 @@ const { getCommanderStats } = require("../../getEquipment.js")
 //627 recruit beri
 //623 recruit storage
 
+const { parentPort } = require('node:worker_threads')
+const ActionType = (() => {
+    try { return require('../../actions.json') } catch { return {} }
+})()
 const troopBlackList = [277]
-const pluginOptions = botConfig.plugins[require('path').basename(__filename).slice(0, -3)] ?? {}
+const PLUGIN_KEY = require('path').basename(__filename).slice(0, -3)
+const pluginOptions = botConfig.plugins[PLUGIN_KEY] ?? {}
 
 const parsePreferredIDs = (value, key) => {
     const raw = String(value ?? "").trim()
@@ -251,8 +268,10 @@ const hasPreferredToolID = (preferredIDs, unitInfo) =>
 const kingdomID = KingdomID.berimond
 const type = AreaType.watchTower
 const eventID = 3
-
 let quit = false
+let campExpansionsCompleted = false
+let campExpansionStepIndex = 0
+let campBuildingsCompleted = false
 
 let foundAllBeri = false
 let list = []
@@ -281,6 +300,232 @@ while(!foundAllTents) {
     if(startTent == item.upgradeWodID)
         throw Error("Recursion")
     startTent = item.upgradeWodID
+}
+
+const CAMP_EXPANSION_STEPS = [
+    // Top expansions
+    { x: 190, y: 220, r: 2 },
+    { x: 190, y: 200, r: 2 },
+    { x: 180, y: 220, r: 2 },
+    { x: 180, y: 200, r: 2 },
+    // Right-side expansions
+    { x: 180, y: 190, r: 3 },
+    { x: 200, y: 190, r: 3 },
+    { x: 220, y: 190, r: 3 },
+    { x: 180, y: 180, r: 3 },
+    { x: 200, y: 180, r: 3 },
+    { x: 220, y: 180, r: 3 }
+]
+
+const createCampBuildingSteps = () => {
+    const steps = []
+    const addBuild = (wid, x, y, r) => steps.push({ wid, x, y, r })
+
+    // Phase 2: Primary tents (16 tents)
+    for (const y of [235, 230, 225, 220, 215, 210, 205, 200]) {
+        addBuild(242, 195, y, 0)
+        addBuild(242, 190, y, 0)
+    }
+
+    // Phase 3: Decorations row 1 (20 decos)
+    addBuild(339, 180, 236, 1)
+    addBuild(339, 185, 236, 1)
+    for (const y of [232, 228, 224, 220, 216, 212, 208, 204, 200]) {
+        addBuild(339, 185, y, 1)
+        addBuild(339, 180, y, 1)
+    }
+
+    // Phase 5: Decorations row 2 (4 decos) + secondary tents (20 tents)
+    addBuild(339, 180, 196, 1)
+    addBuild(339, 185, 196, 1)
+    addBuild(339, 180, 192, 1)
+    addBuild(339, 185, 192, 1)
+
+    const phase5Tents = [
+        [190, 195], [190, 190], [195, 195], [195, 190], [200, 195], [200, 190],
+        [205, 195], [205, 190], [210, 195], [210, 190], [215, 195], [215, 190],
+        [220, 195], [220, 190], [225, 195], [225, 190], [230, 195], [230, 190],
+        [235, 195], [235, 190]
+    ]
+    for (const [x, y] of phase5Tents)
+        addBuild(242, x, y, 0)
+
+    // Phase 6: Final decor (6 decos) + final tents (20 tents)
+    const finalDecos = [
+        [185, 188], [180, 188], [185, 184],
+        [180, 184], [180, 180], [185, 180]
+    ]
+    for (const [x, y] of finalDecos)
+        addBuild(339, x, y, 1)
+
+    const finalTents = [
+        [190, 185], [190, 180], [195, 185], [195, 180], [200, 185], [200, 180],
+        [205, 185], [205, 180], [210, 185], [210, 180], [215, 185], [215, 180],
+        [220, 185], [220, 180], [225, 185], [225, 180], [230, 185], [230, 180],
+        [235, 185], [235, 180]
+    ]
+    for (const [x, y] of finalTents)
+        addBuild(242, x, y, 0)
+
+    return steps
+}
+
+const CAMP_BUILDING_STEPS = createCampBuildingSteps()
+
+async function autoExpandCamp(castle, areaID) {
+    if (campExpansionsCompleted)
+        return
+
+    let hasExpandedAnyInRun = false
+
+    for (let i = campExpansionStepIndex; i < CAMP_EXPANSION_STEPS.length; i++) {
+        const step = CAMP_EXPANSION_STEPS[i]
+
+        const payload = { X: step.x, Y: step.y, R: step.r, CT: 1 }
+        await sendXT("ebe", JSON.stringify(payload))
+        const [obj, result] = await waitForResult("ebe", 1000 * 30)
+
+        if (result == 0) {
+            console.log(`[Camp Expansion] (${i + 1}/${CAMP_EXPANSION_STEPS.length}) Expanded plot at (${step.x}, ${step.y})`)
+            hasExpandedAnyInRun = true
+            campExpansionStepIndex = i + 1
+            castle = await ClientCommands.joinCastle(areaID, kingdomID)()
+            await new Promise(r => setTimeout(r, 1000))
+            continue
+        } else if (result == 6) {
+            // Result 6: Position invalid / already unlocked.
+            // If we have not performed any expansion in this run yet, this step was already unlocked in a previous session.
+            // If we already expanded an earlier step during this run, code 6 indicates a sync lag or failure, so we stop and wait.
+            if (!hasExpandedAnyInRun) {
+                campExpansionStepIndex = i + 1
+                continue
+            } else {
+                console.warn(`[Camp Expansion] Step (${i + 1}/${CAMP_EXPANSION_STEPS.length}) at (${step.x}, ${step.y}) returned code 6. Waiting for synchronization.`)
+                return
+            }
+        } else if (result == 55 || result == 10 || result == 11) {
+            console.warn(`[Camp Expansion] Not enough resources to expand (${step.x}, ${step.y}) [code ${result}]. Retrying next cycle.`)
+            return
+        } else {
+            console.warn(`[Camp Expansion] Expansion failed at (${step.x}, ${step.y}) with code ${result}. Retrying next cycle.`)
+            return
+        }
+    }
+
+    if (campExpansionStepIndex >= CAMP_EXPANSION_STEPS.length) {
+        console.log("[Camp Expansion] All camp expansions completed. Disabled 'Expand camp' option.")
+        campExpansionsCompleted = true
+        pluginOptions.enableCampExpansions = false
+        if (typeof parentPort !== "undefined" && parentPort && ActionType.SetPluginOptions !== undefined) {
+            parentPort.postMessage([
+                ActionType.SetPluginOptions,
+                { pluginKey: PLUGIN_KEY, key: "enableCampExpansions", value: false }
+            ])
+        }
+    }
+}
+
+const isCampBuildingStepComplete = (buildingsList, step) => {
+    if (step.wid == 242) {
+        return buildingsList.some(b => b.x == step.x && b.y == step.y && tentList.includes(Number(b.wodID)))
+    }
+    return buildingsList.some(b => b.x == step.x && b.y == step.y && Number(b.wodID) == Number(step.wid))
+}
+
+async function skipNewlyBuiltBuilding(castle, ownerID, buildingInfo) {
+    if (!Number.isFinite(ownerID) || ownerID < 0)
+        return
+
+    let buildDuration = Number(buildingInfo?.buildDuration ?? 1800)
+    let buildSpeedBoost = castle.areaInfo?.getProductionData?.buildSpeedBoost ?? 1
+    let timeToSkip = buildDuration / buildSpeedBoost
+
+    do {
+        if (timeToSkip <= 4 * 60) {
+            await sendXT("fco", JSON.stringify({ OID: ownerID, FS: 1 }))
+            await waitForResult("fco", 1000 * 10, (obj, r) => r != 0 || obj?.O[1] == ownerID)
+            break
+        }
+
+        const skip = spendSkip(timeToSkip - 4 * 60)
+        if (!skip)
+            break
+
+        await sendXT("msb", JSON.stringify({ OID: ownerID, MST: skip }))
+        timeToSkip -= MinuteSkipType[skip] * 60
+    } while (timeToSkip > 0)
+
+    await new Promise(r => setTimeout(r, 1000))
+}
+
+async function autoBuildCamp(castle, areaID) {
+    if (campBuildingsCompleted)
+        return
+
+    let buildingsList = castle.getCastleArea.buildings ?? []
+    let allComplete = true
+
+    for (let i = 0; i < CAMP_BUILDING_STEPS.length; i++) {
+        const step = CAMP_BUILDING_STEPS[i]
+        if (isCampBuildingStepComplete(buildingsList, step))
+            continue
+
+        if (castle.getCastleArea.buildingSlots.find(e => e == -1) == undefined) {
+            allComplete = false
+            return
+        }
+
+        let buildingInfo = buildings.find(e => e?.wodID == step.wid)
+        if (buildingInfo) {
+            if (Number(buildingInfo.costWood ?? 0) > castle.areaInfo.wood || Number(buildingInfo.costStone ?? 0) > castle.areaInfo.stone) {
+                console.warn("[Camp Building] Not enough resources to build. Retrying next cycle.")
+                allComplete = false
+                return
+            }
+            castle.areaInfo.wood -= Number(buildingInfo.costWood ?? 0)
+            castle.areaInfo.stone -= Number(buildingInfo.costStone ?? 0)
+        }
+
+        const payload = { WID: step.wid, X: step.x, Y: step.y, R: step.r, PWR: 0, PO: -1, DOID: -1 }
+        await sendXT("ebu", JSON.stringify(payload))
+        const [obj, result] = await waitForResult("ebu", 1000 * 20)
+
+        if (result == 0) {
+            const ownerID = obj?.O?.[0]?.[1] ?? obj?.O?.[1]
+            if (ownerID != undefined) {
+                try {
+                    await skipNewlyBuiltBuilding(castle, Number(ownerID), buildingInfo)
+                } catch (e) {
+                    console.debug("[Camp Building] Failed to skip newly built building:", e?.message ?? e)
+                }
+            }
+            castle = await ClientCommands.joinCastle(areaID, kingdomID)()
+            buildingsList = castle.getCastleArea.buildings ?? []
+            continue
+        } else if (result == 6) {
+            allComplete = false
+            continue
+        } else if (result == 63) {
+            allComplete = false
+            return
+        } else {
+            console.warn(`[Camp Building] Build failed at (${step.x}, ${step.y}) with code ${result}`)
+            allComplete = false
+            return
+        }
+    }
+
+    if (allComplete) {
+        console.log("[Camp Building] All camp buildings completed. Disabled 'Build camp' option.")
+        campBuildingsCompleted = true
+        pluginOptions.enableCampBuildings = false
+        if (typeof parentPort !== "undefined" && parentPort && ActionType.SetPluginOptions !== undefined) {
+            parentPort.postMessage([
+                ActionType.SetPluginOptions,
+                { pluginKey: PLUGIN_KEY, key: "enableCampBuildings", value: false }
+            ])
+        }
+    }
 }
 
 /**
@@ -507,25 +752,49 @@ const recruitTroops = () => kingdomLock(async () => {
     // setTimeout(recruitTroops, (await waitForResult("spl", 1000 * 10))[0].TCT * 1000) likely broke
 })
 
-const upgradeTentsLoop = () => kingdomLock(async () => {
+const campMaintenanceLoop = () => kingdomLock(async () => {
     if (quit)
         return
-    if (!pluginOptions.upgradeTents) {
-        return setTimeout(upgradeTentsLoop, 60 * 15 * 1000)
+
+    const needExpand = pluginOptions.enableCampExpansions && !campExpansionsCompleted
+    const needTents = pluginOptions.upgradeTents
+    const needBuild = pluginOptions.enableCampBuildings && !campBuildingsCompleted
+
+    if (!needExpand && !needTents && !needBuild) {
+        return setTimeout(campMaintenanceLoop, 10 * 60 * 1000)
     }
 
     try {
         const resourceCastleList = await getResourceCastleList()
         const sourceCastleArea = resourceCastleList.castles.find(e => e.kingdomID == kingdomID)
-            .areaInfo.find(e => AreaType.beriCastle == e.type)
-        const areaID = sourceCastleArea.extraData[0]
+            ?.areaInfo.find(e => AreaType.beriCastle == e.type)
+        if (!sourceCastleArea)
+            return setTimeout(campMaintenanceLoop, 10 * 60 * 1000)
 
-        await upgradeTents(areaID)
+        const areaID = sourceCastleArea.extraData[0]
+        let castle = await ClientCommands.joinCastle(areaID, kingdomID)()
+
+        // Priority 1: Expand camp
+        if (pluginOptions.enableCampExpansions && !campExpansionsCompleted) {
+            await autoExpandCamp(castle, areaID)
+            castle = await ClientCommands.joinCastle(areaID, kingdomID)()
+        }
+
+        // Priority 2: Upgrade tents
+        if (pluginOptions.upgradeTents) {
+            await upgradeTents(areaID)
+            castle = await ClientCommands.joinCastle(areaID, kingdomID)()
+        }
+
+        // Priority 3: Build camp
+        if (pluginOptions.enableCampBuildings && !campBuildingsCompleted) {
+            await autoBuildCamp(castle, areaID)
+        }
     } catch (e) {
-        console.error("upgradeTentsLoop error", e)
+        console.error("campMaintenanceLoop error", e)
     }
 
-    setTimeout(upgradeTentsLoop, 60 * 15 * 1000)
+    setTimeout(campMaintenanceLoop, 10 * 60 * 1000)
 })
 
 events.on("eventStop", eventInfo => {
@@ -574,10 +843,15 @@ events.on("eventStart", async eventInfo => {
 
     quit = false
 
+    campExpansionsCompleted = false
+    campExpansionStepIndex = 0
+    campBuildingsCompleted = false
+
     recruitTroops()
-    upgradeTentsLoop()
+    campMaintenanceLoop()
 
     while (!quit) {
+
         const commander = await waitForCommanderAvailable(pluginOptions.commanderWhiteList,
             commander =>
                 !((commander.EQ[3] ?? [])[5]?.every(([id, _]) => id == 121 ? false : true)) ?? true,
@@ -850,25 +1124,12 @@ events.on("eventStart", async eventInfo => {
                 }
                 attackInfo.A.forEach((wave, index) => {
                     const maxToolsFlank = getTotalAmountToolsFlank(level, 0)
-                    const maxToolsFront = getTotalAmountToolsFront(level)
-
-                    const desiredToolCount = attackerBerimondTools.length == 0 ? 20 : 10
 
                     let maxTools = maxToolsFlank
                     if (index == 0) {
                         wave.L.T.forEach((unitSlot, i) =>
                             maxTools -= checkIfNeededLeftFlank(unitSlot, i == 0 ?
                                 attackerWallBerimondTools : attackerShieldBerimondTools, i,  maxTools))
-
-                        maxTools = maxToolsFlank
-                        wave.R.T.forEach((unitSlot, i) =>
-                            maxTools -= checkIfNeeded(unitSlot, i == 0 ?
-                                attackerWallBerimondTools : attackerShieldBerimondTools, Math.min(maxTools, desiredToolCount)))
-
-                        maxTools = maxToolsFront
-                        wave.M.T.forEach((unitSlot, i) =>
-                            maxTools -= checkIfNeededLeftFlank(unitSlot, i == 0 ? attackerWallBerimondTools :
-                                attackerShieldBerimondTools, i,  maxTools))
 
                         let maxTroops = requiredTroopCount
 
@@ -883,38 +1144,20 @@ events.on("eventStart", async eventInfo => {
                             throw "NO_MORE_TROOPS"
                     }
                     else {
-                        const selectTool = i => {
+                        const selectTool = () => {
                             let tools = attackerBerimondTools
                             if (tools.length == 0) {
-                                if (i == 0) {
-                                    tools = attackerWallBerimondTools
-                                    if (tools.length == 0)
-                                        tools = attackerShieldBerimondTools
-                                }
-                                else if (i == 1) {
+                                tools = attackerWallBerimondTools
+                                if (tools.length == 0)
                                     tools = attackerShieldBerimondTools
-                                    if (tools.length == 0)
-                                        tools = attackerWallBerimondTools
-                                }
-                                if (i == 2) {
-                                    tools = attackerWallBerimondTools
-                                    if (tools.length == 0)
-                                        tools = attackerShieldBerimondTools
-                                }
                             }
                             return tools
                         }
 
                         wave.L.T.forEach((unitSlot, i) =>
-                            maxTools -= checkIfNeeded(unitSlot, selectTool(0), maxTools))
-                        maxTools = maxToolsFlank
-                        wave.R.T.forEach((unitSlot, i) =>
-                            maxTools -= checkIfNeeded(unitSlot, selectTool(1), maxTools))
-                        maxTools = maxToolsFront
-                        wave.M.T.forEach((unitSlot, i) =>
-                            maxTools -= checkIfNeeded(unitSlot, selectTool(2), maxTools))
+                            maxTools -= checkIfNeeded(unitSlot, selectTool(), maxTools))
 
-                        if (!(wave.L.T[0][0] == -1 && wave.M.T[0][0] == -1 && wave.R.T[0][0] == -1)) {
+                        if (wave.L.T[0][0] != -1) {
                             wave.L.U.forEach((unitSlot, i) =>
                                 assignUnit(unitSlot, selectTroopPool(), 1))
                         }
